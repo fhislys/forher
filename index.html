@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>for brianna</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffe6f0;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            width: 80%;
+            max-width: 600px;
+            position: relative; /* Important to position the content correctly with waves */
+            z-index: 2; /* Ensure the content is above the waves */
+        }
+
+        /* Waves Animation start */
+        .hero_area {
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+            bottom: 0;
+            left: 0;
+            background-color: #ffe6f0; /* Same as body background to blend smoothly */
+            z-index: 1;
+        }
+
+        .waves {
+            position: absolute;
+            width: 100%;
+            height: 15vh;
+            min-height: 100px;
+            max-height: 150px;
+            bottom: 0;
+            left: 0;
+        }
+
+        .parallax>use {
+            animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
+        }
+
+        .parallax>use:nth-child(1) {
+            animation-delay: -2s;
+            animation-duration: 7s;
+        }
+
+        .parallax>use:nth-child(2) {
+            animation-delay: -3s;
+            animation-duration: 10s;
+        }
+
+        .parallax>use:nth-child(3) {
+            animation-delay: -4s;
+            animation-duration: 13s;
+        }
+
+        .parallax>use:nth-child(4) {
+            animation-delay: -5s;
+            animation-duration: 20s;
+        }
+
+        @keyframes move-forever {
+            0% {
+                transform: translate3d(-90px, 0, 0);
+            }
+
+            100% {
+                transform: translate3d(85px, 0, 0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .waves {
+                height: 40px;
+                min-height: 40px;
+            }
+        }
+        /* Waves Animation end */
+
+        .start-screen, .message-screen, .end-screen, .response-screen, .terms-screen {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .start-screen {
+            display: block;
+            opacity: 1;
+        }
+
+        .start-button {
+            padding: 15px 30px;
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .start-instruction {
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .message-text {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #333;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+
+        .end-screen h1 {
+            font-size: 2rem;
+            color: #ff69b4;
+        }
+
+        .yes-button, .no-button {
+            padding: 15px 30px;
+            margin: 20px 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .yes-button {
+            background-color: #ff69b4;
+            color: white;
+        }
+
+        .no-button {
+            background-color: #ccc;
+            color: white;
+        }
+
+        .terms-screen {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 500px;
+            margin: 20px auto;
+            position: relative;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .terms-screen h2 {
+            color: #ff69b4;
+            margin-bottom: 10px;
+        }
+
+        .terms-screen ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .terms-screen li {
+            font-size: 1.1rem;
+            margin: 10px 0;
+        }
+
+        .terms-screen .checkbox-container {
+            margin: 20px 0;
+        }
+
+        .terms-screen .checkbox-container input {
+            margin-right: 10px;
+        }
+
+        .terms-screen .confirm-button {
+            padding: 10px 20px;
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="start-screen">
+            <p class="start-instruction">Before you start, screen record this so I can see</p>
+            <button class="start-button">Start</button>
+        </div>
+        <div class="message-screen">
+            <div class="message-text" id="message-text"></div>
+        </div>
+        <div class="end-screen">
+            <h1>Will You Be My Girlfriend?</h1>
+            <button class="yes-button">Yes</button>
+            <button class="no-button">No</button>
+        </div>
+        <div class="response-screen" id="response-screen">
+            <p id="response-text"></p>
+        </div>
+        <div class="terms-screen" id="terms-screen">
+            <h2>Terms and Conditions</h2>
+            <ul>
+                <li>1. Be loyal</li>
+                <li>2. Communicate openly</li>
+                <li>3. Be honest with each other</li>
+                <li>4. Commit to each other</li>
+                <li>5. Support and encourage each other</li>
+                <li>6. Respect each other’s personal space and time</li>
+                <li>7. Always work together to resolve conflicts</li>
+            </ul>
+            <div class="checkbox-container">
+                <input type="checkbox" id="agree-checkbox">
+                <label for="agree-checkbox">I agree to these terms</label>
+            </div>
+            <button class="confirm-button" id="confirm-button" disabled>Confirm</button>
+        </div>
+    </div>
+
+    <!-- Hero Area with Waves -->
+    <div class="hero_area">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="parallax">
+                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,120,175,0.7)" />
+                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,120,175,0.5)" />
+                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,120,175,0.3)" />
+                <use xlink:href="#gentle-wave" x="48" y="7" fill="rgba(255,150,190)" />
+            </g>
+        </svg>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const startButton = document.querySelector('.start-button');
+            const startScreen = document.querySelector('.start-screen');
+            const messageScreen = document.querySelector('.message-screen');
+            const endScreen = document.querySelector('.end-screen');
+            const messageText = document.getElementById('message-text');
+            const responseScreen = document.getElementById('response-screen');
+            const responseText = document.getElementById('response-text');
+            const termsScreen = document.getElementById('terms-screen');
+            const confirmButton = document.getElementById('confirm-button');
+            const agreeCheckbox = document.getElementById('agree-checkbox');
+            const yesButton = document.querySelector('.yes-button');
+            const noButton = document.querySelector('.no-button');
+
+            const messages = [
+    "brianna, from the moment i met you, everything changed.",
+    "your smile, your laugh, your kindness—I can't get enough.",
+    "every day i find myself thinking about you.",
+    "you have a way of making everything better.",
+    "i can't imagine my life without you in it.",
+    "i love you more than words can say.",
+    "i can't resist not being yours.",
+    "so, here’s my question..."
+];
+
+            let messageIndex = 0;
+
+            function fadeOut(element) {
+                element.style.opacity = 0;
+                setTimeout(() => {
+                    element.style.display = 'none';
+                }, 1000);
+            }
+
+            function fadeIn(element) {
+                element.style.display = 'block';
+                setTimeout(() => {
+                    element.style.opacity = 1;
+                }, 50);  // Slight delay to ensure display property is set before opacity transition
+            }
+
+            function showNextMessage() {
+                if (messageIndex < messages.length) {
+                    messageText.textContent = messages[messageIndex];
+                    messageText.style.opacity = 1;
+
+                    setTimeout(() => {
+                        messageText.style.opacity = 0;
+                        messageIndex++;
+                        setTimeout(showNextMessage, 2000);  // Slight delay before showing the next message
+                    }, 4000);  // Display each message for 4 seconds
+                } else {
+                    setTimeout(() => {
+                        fadeOut(messageScreen);
+                        fadeIn(endScreen);
+                        fadeIn(yesButton);
+                        fadeIn(noButton);
+                    }, 4000);  // Longer pause before showing the final question
+                }
+            }
+
+            startButton.addEventListener('click', function () {
+                fadeOut(startScreen);
+                fadeIn(messageScreen);
+                showNextMessage();
+            });
+
+            yesButton.addEventListener('click', function () {
+                fadeOut(endScreen);
+                fadeIn(termsScreen);
+                fadeIn(confirmButton);
+            });
+
+            noButton.addEventListener('click', function () {
+                fadeOut(endScreen);
+                fadeIn(responseScreen);
+                responseText.textContent = "That's okay, I just wanted you to know how I feel. You're still amazing to me.";
+            });
+
+            agreeCheckbox.addEventListener('change', function () {
+                confirmButton.disabled = !agreeCheckbox.checked;
+            });
+
+            confirmButton.addEventListener('click', function () {
+                fadeOut(termsScreen);
+                fadeIn(responseScreen);
+                responseText.textContent = "Your results will get back to you in approximately 10 minutes.";
+            });
+        });
+    </script>
+</body>
+</html>
